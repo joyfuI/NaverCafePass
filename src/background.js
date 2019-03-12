@@ -6,7 +6,8 @@ function referer(details)
 	for (let header of details.requestHeaders)
 		if (header.name.toLowerCase() === 'referer')	// 리퍼러가 있으면
 		{
-			header.value = 'https://search.naver.com/';	// 네이버 검색 페이지로 조작
+			if (header.value.indexOf('cafe.naver.com') == -1)	// 카페 내부가 아니면
+				header.value = 'https://search.naver.com/';	// 네이버 검색 페이지로 조작
 			toggle = false;
 			break;
 		}
