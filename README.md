@@ -11,6 +11,7 @@
 <!--
 * [Edge](https://www.microsoft.com/ko-kr/windows/microsoft-edge)
 -->
+* 비발디 등 크롬 웹 스토어 이용이 가능한 크로뮴 기반 브라우저들
 
 이외에도 지원했으면 좋겠다 싶은 브라우저가 있으면 알려주세요.  
 WebExtensions API를 지원하는 브라우저면 아마도 지원이 가능할 겁니다.
