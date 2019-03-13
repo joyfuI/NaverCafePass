@@ -1,5 +1,4 @@
 "use strict";
-
 function referer(details)
 {
 	const refererUrl = 'https://search.naver.com/?query=a';
