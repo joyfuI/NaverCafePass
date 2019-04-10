@@ -5,7 +5,7 @@
 * [Chrome](https://chrome.google.com/webstore/detail/%EB%84%A4%EC%9D%B4%EB%B2%84-%EC%B9%B4%ED%8E%98-%ED%8C%A8%EC%8A%A4/gipgjcnhbklggnannochejcaieghkmcn)
 * [Whale](https://store.whale.naver.com/detail/jbhpjfbiohcbmahilfnkaencepaaohmn)
 
-아직 각 브라우저 스토어에 등록 진행 중
+아니 이놈의 엣지랑 오페라는 대체 언제 승인해주는거야? 몇달째 반응이 없네ㅡㅡ
 ## 지원 브라우저
 * [Firefox](https://www.mozilla.org/)
 * [Chrome](https://www.google.com/chrome/)<!-- * [Edge](https://www.microsoft.com/ko-kr/windows/microsoft-edge) -->
