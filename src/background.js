@@ -1,6 +1,6 @@
 "use strict";
 function referer(details) {	//cafe-intro
-	const refererUrl = 'https://search.naver.com/?query=a';
+	const refererUrl = 'https://search.naver.com/?&query=a';
 	let toggle = true;
 
 	if ((/\/.+\/\d+/).test(details.url)) {	// 게시글 주소에서만 작동
