@@ -18,7 +18,7 @@ function referer(details) {
 	return { requestHeaders: details.requestHeaders };
 }
 
-function replace(details) {
+async function replace(details) {
 	if (details.type != 'main_frame') {	// 프레임 내부에선 작동 안하도록
 		return;
 	}
@@ -26,11 +26,11 @@ function replace(details) {
 	let clubid = details.url.match(/clubid=(\d+)/)[1];
 	let articleid = details.url.match(/articleid=(\d+)/)[1];
 	let cafeName;
-	let xhr = new XMLHttpRequest();
-	xhr.open('GET', 'https://cafe.naver.com/MyCafeMain.nhn?clubid=' + clubid, false);
-	xhr.send(null);
-	if (xhr.status === 200) {
-		cafeName = xhr.responseText.match(/var g_sCafeHome = \"https:\/\/cafe.naver.com\/\" \+ \"(.+)\"/)[1];	// 카페 이름 추출
+	let response = await fetch(`https://cafe.naver.com/MyCafeMain.nhn?clubid=${clubid}`);
+	if (response.status === 200) {
+		let { value: chunk, done: readerDone } = await response.body.getReader().read();
+		let str = new TextDecoder('euc-kr').decode(chunk);
+		cafeName = str.match(/var g_sCafeHome = \"https:\/\/cafe.naver.com\/\" \+ \"(.+)\"/)[1];	// 카페 이름 추출
 	} else {
 		return;
 	}
@@ -49,7 +49,7 @@ function replace(details) {
 		return;
 	}
 */
-	return { redirectUrl: 'https://cafe.naver.com/' + cafeName + '/' + articleid };
+	return { redirectUrl: `https://cafe.naver.com/${cafeName}/${articleid}` };
 }
 
 let extraInfoSpec = ['blocking', 'requestHeaders'];
@@ -67,5 +67,5 @@ try {
 }
 
 browser.webRequest.onBeforeRequest.addListener(replace, {
-	urls: ["*://cafe.naver.com/ArticleRead.nhn*articleid*"]
+	urls: ['*://cafe.naver.com/ArticleRead.nhn*articleid*', '*://cafe.naver.com/ca-fe/ArticleRead.nhn*articleid*']
 }, ['blocking']);
