@@ -18,7 +18,7 @@ function referer(details) {
 	return { requestHeaders: details.requestHeaders };
 }
 
-async function replace(details) {
+function replace(details) {
 	if (details.type != 'main_frame') {	// 프레임 내부에선 작동 안하도록
 		return;
 	}
@@ -26,11 +26,21 @@ async function replace(details) {
 	let clubid = details.url.match(/clubid=(\d+)/)[1];
 	let articleid = details.url.match(/articleid=(\d+)/)[1];
 	let cafeName;
+/* 크롬은 async을 쓰면 안됨. 파이어폭스에서만 정상 작동
 	let response = await fetch(`https://cafe.naver.com/MyCafeMain.nhn?clubid=${clubid}`);
 	if (response.status === 200) {
 		let { value: chunk, done: readerDone } = await response.body.getReader().read();
 		let str = new TextDecoder('euc-kr').decode(chunk);
 		cafeName = str.match(/var g_sCafeHome = \"https:\/\/cafe.naver.com\/\" \+ \"(.+)\"/)[1];	// 카페 이름 추출
+	} else {
+		return;
+	}
+*/
+	let xhr = new XMLHttpRequest();
+	xhr.open('GET', `https://cafe.naver.com/MyCafeMain.nhn?clubid=${clubid}`, false);
+	xhr.send(null);
+	if (xhr.status === 200) {
+		cafeName = xhr.responseText.match(/var g_sCafeHome = \"https:\/\/cafe.naver.com\/\" \+ \"(.+)\"/)[1];	// 카페 이름 추출
 	} else {
 		return;
 	}
