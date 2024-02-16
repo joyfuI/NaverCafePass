@@ -1,0 +1,64 @@
+[
+  {
+    "id": 1,
+    "condition": {
+      "regexFilter": "^https?://(m\\.)?cafe\\.naver\\.com/.+/\\d+",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    },
+    "action": {
+      "type": "modifyHeaders",
+      "requestHeaders": [
+        {
+          "header": "Referer",
+          "operation": "set",
+          "value": "https://search.naver.com/?&query=."
+        }
+      ]
+    }
+  },
+  {
+    "id": 2,
+    "condition": {
+      "regexFilter": "^https?://cafe\\.naver\\.com/.+\\?.+articleid",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    },
+    "action": {
+      "type": "modifyHeaders",
+      "requestHeaders": [
+        {
+          "header": "Referer",
+          "operation": "set",
+          "value": "https://search.naver.com/?&query=."
+        }
+      ]
+    }
+  },
+  {
+    "id": 3,
+    "condition": {
+      "regexFilter": "^https?://(m\\.)?cafe\\.daum\\.net/.+/.+/\\d+",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    },
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "transform": {
+          "queryTransform": {
+            "addOrReplaceParams": [
+              {
+                "key": "q",
+                "value": "."
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+]
